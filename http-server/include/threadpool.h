@@ -16,11 +16,14 @@ typedef struct {
   Task *head;
   Task *tail;
   pthread_mutex_t pt_lock;
-  pthread_cond_t pt_hw;
+  pthread_cond_t pt_wa; // work available
+  int running;
 } ThreadPool;
 
 ThreadPool *tpool_create(void);
 
 void tpool_add_task(ThreadPool *tpool, void (*fn)(int), int client_fd);
+
+void tpool_destroy(ThreadPool *tpool);
 
 #endif
