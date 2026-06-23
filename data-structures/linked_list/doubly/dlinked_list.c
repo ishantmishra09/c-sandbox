@@ -137,6 +137,8 @@ void freeList(Node **head) {
     free(temp->data);
     free(temp);
   }
+
+  *head = NULL;
 }
 
 void deleteFromBeginning(Node **head) {
@@ -193,7 +195,7 @@ void deleteByValue(Node **head, const char *value) {
   while (temp != NULL && strcmp(temp->data, value) != 0)
     temp = temp->next;
 
-  if (temp->next == NULL) {
+  if (temp == NULL) {
     printf("Value \"%s\" not found.\n", value);
     return;
   }
@@ -201,7 +203,7 @@ void deleteByValue(Node **head, const char *value) {
   if (temp->prev != NULL)
     temp->prev->next = temp->next;
 
-  if (temp != NULL)
+  if (temp->next != NULL)
     temp->next->prev = temp->prev;
 
   free(temp->data);
